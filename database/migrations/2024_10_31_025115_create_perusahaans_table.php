@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('perusahaans', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_perusahaan');
-            $table->string('alamat');
-            $table->string('email');
-            $table->softDeletes();
+            $table->string('nama');
+            $table->string('lokasi');
+            $table->string('gambar')->nullable();
             $table->timestamps();
         });
     }

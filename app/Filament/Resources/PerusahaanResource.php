@@ -16,7 +16,7 @@ use App\Filament\Resources\PerusahaanResource\RelationManagers;
 class PerusahaanResource extends Resource
 {
     protected static ?string $model = Perusahaan::class;
-
+    protected static ?string $navigationGroup = 'Admin';
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -24,14 +24,13 @@ class PerusahaanResource extends Resource
         return $form
             ->schema([
                 //
-                Forms\Components\TextInput::make('nama_perusahaan')
-                ->required()
-                ->maxLength(255),
-
-                Forms\Components\TextArea::make('alamat')
+                Forms\Components\TextInput::make('nama')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('lokasi')
                     ->required(),
 
-                    Forms\Components\TextInput::make('email')
+               Forms\Components\FileUpload::make('gambar')->image()->required(),
             ]);
     }
 
@@ -40,9 +39,10 @@ class PerusahaanResource extends Resource
         return $table
             ->columns([
                 //
-                Tables\Columns\TextColumn::make('nama_perusahaan'),
-                Tables\Columns\TextColumn::make('alamat'),
-                Tables\Columns\TextColumn::make('email')
+                Tables\Columns\TextColumn::make('nama')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('lokasi')->sortable(),
+                Tables\Columns\ImageColumn::make('gambar')->disk('public')->circular(),
+       
             ])
             ->filters([
                 //

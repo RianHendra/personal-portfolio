@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('lowongans', function (Blueprint $table) {
             $table->id();
-            $table->string('posisi');
-            $table->string('deskripsi');
-            $table->bigInteger('gaji');
-            $table->foreignId('perusahaan_id')->constrained()->cascadeOnDelete();
-            $table->softDeletes();
+            $table->string('judul');
+            $table->foreignId('perusahaan_id')->constrained('perusahaans')->onDelete('cascade');
+            $table->string('lokasi');
+            $table->enum('jenis_pekerjaan', ['Full Time', 'Part Time', 'Freelance']);
+            $table->string('gaji');
+            $table->date('tanggal_akhir');
             $table->timestamps();
         });
     }
